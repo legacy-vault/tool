@@ -1,0 +1,25 @@
+------------------------
+Block C.R.C. Check Tool.
+------------------------
+Usage.
+------
+
+--------------------------------------------------------------------------------
+
+CheckSum File Creation:
+-------------------------------------------------------------------
+tool -action=create -data_file=./../data/image.png -block_size=1024
+-------------------------------------------------------------------
+
+CheckSums Verification:
+------------------------------------------------------------------------------------
+tool -action=check -data_file=./../data/image.png
+tool -action=check -data_file=./../data/image.png -sum_file=./../data/image.png.bcrc
+------------------------------------------------------------------------------------
+
+Notes:
+--------------------------------------------------------------------------------
+To get a full List of Command Line Parameters, run the Tool with '-h' Argument.
+If the Path to CheckSums File is empty, it is then copied from Data File Path, 
+with the 'bcrc' Extension appended.
+--------------------------------------------------------------------------------
