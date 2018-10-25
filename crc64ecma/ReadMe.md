@@ -33,7 +33,7 @@ Run with '-h' Command Line Argument to list all possible Command Line Arguments.
 Command Line Arguments must be provided before any File Path. This is a 
 Requirement of the current Version of Golang's built-in 'flag' Package.
 
-Examples:
+Examples:<br />
 crc64ecma -uc ./data/a.txt data/b.txt<br />
 ./crc64ecma data/a.txt ./data/b.txt<br />
 crc64ecma /tmp/my_file.dat<br />
