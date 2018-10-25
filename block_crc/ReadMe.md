@@ -1,10 +1,12 @@
-------------------------
-Block C.R.C. Check Tool.
-------------------------
-Description.
-------------
+# Block C.R.C. Check Tool.
 
---------------------------------------------------------------------------------
+
+## Short Description.
+
+This is a Test Tool to create and verify CRC32 CheckSums of a File.
+
+## Full Description.
+
 This is a Test Tool to create and verify CRC32 CheckSums of a File.
 
 In 'CheckSum File Creation' Mode, this Tools reads the Data File by Blocks of 
@@ -40,4 +42,14 @@ with the "ABCDE" Contents, then we calculate Check Sums of two Blocks: "ABCD"
 and "E000".
 
 To get a full List of Command Line Parameters, run the Tool with '-h' Argument.
---------------------------------------------------------------------------------
+
+## Installation.
+
+Import Commands:
+```
+go get "github.com/legacy-vault/tool/block_crc/source"
+```
+
+## Usage.
+
+To get a full List of Command Line Parameters, run the Tool with '-h' Argument.
