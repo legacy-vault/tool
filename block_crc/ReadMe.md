@@ -47,7 +47,7 @@ To get a full List of Command Line Parameters, run the Tool with '-h' Argument.
 
 Import Commands:
 ```
-go get "github.com/legacy-vault/tool/block_crc/source"
+go get -u "github.com/legacy-vault/tool/block_crc/source"
 ```
 
 ## Usage.

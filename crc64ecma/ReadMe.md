@@ -23,7 +23,7 @@ This Program can process only small Files which can be placed in the RAM.
 
 Import Commands:
 ```
-go get "github.com/legacy-vault/tool/crc64ecma/code"
+go get -u "github.com/legacy-vault/tool/crc64ecma/code"
 ```
 
 ## Usage.
