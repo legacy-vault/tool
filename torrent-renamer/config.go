@@ -24,6 +24,8 @@
 
 // Configuration.
 
+// Last Update Time: 2018-10-30.
+
 package main
 
 type Configuration struct {

@@ -24,6 +24,8 @@
 
 // Torrent File Renamer.
 
+// Last Update Time: 2018-10-30.
+
 package main
 
 import (
@@ -37,6 +39,7 @@ import (
 // Program's Entry Point.
 func main() {
 
+	var duplicates int
 	var err error
 	var inputFilePaths []string
 	var inputFilePathsCount int
@@ -83,7 +86,7 @@ func main() {
 	}
 
 	// Process Files.
-	err = processFiles(
+	duplicates, err = processFiles(
 		inputFilePaths,
 		appCfg.FolderPathOutput,
 		appCfg.OutputFileNameToUpperCase,
@@ -92,6 +95,9 @@ func main() {
 		log.Println(err)
 		os.Exit(ExitCodeFileProcessingError)
 	}
+
+	// Duplicates Report.
+	fmt.Printf(Duplicates, duplicates)
 }
 
 // Checker of initial Errors.

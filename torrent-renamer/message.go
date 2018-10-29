@@ -24,6 +24,8 @@
 
 // Messages.
 
+// Last Update Time: 2018-10-30.
+
 package main
 
 const UsageHint = "Start with '-h' Argument to get Help.\r\n" +
@@ -37,3 +39,4 @@ const MessagesToProcess = "%v Files are going to be processed.\r\n" +
 const KeyboardInputYes = "y"
 const FolderIn = "Input Folder:"
 const FolderOut = "Output Folder:"
+const Duplicates = "%v duplicate Files have been found.\r\n"

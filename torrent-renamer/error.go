@@ -24,6 +24,8 @@
 
 // Errors.
 
+// Last Update Time: 2018-10-30.
+
 package main
 
 const ErrPathExistence = "Path '%s' does not exist"

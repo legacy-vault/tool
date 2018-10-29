@@ -24,6 +24,8 @@
 
 // File Functions.
 
+// Last Update Time: 2018-10-30.
+
 package main
 
 import (
@@ -62,13 +64,15 @@ func listInputFiles() []string {
 }
 
 // Processes the Files.
+// Returns the Number of duplicate Items.
 func processFiles(
 	inputFilePaths []string,
 	outputFolder string,
 	outputToUpperCase bool,
-) error {
+) (int, error) {
 
 	var do *bencode.DecodedObject
+	var duplicates int
 	var err error
 	var filePath string
 	var outputFileName string
@@ -84,7 +88,7 @@ func processFiles(
 				filePath,
 				err.Error(),
 			)
-			return err
+			return duplicates, err
 		}
 
 		// Create a Name for Output File.
@@ -94,6 +98,11 @@ func processFiles(
 		}
 		outputFileName = outputFileName + ExtWanted
 		outputFilePath = path.Join(outputFolder, outputFileName)
+
+		// Check whether an Output File already exists.
+		if pathExists(outputFilePath) {
+			duplicates++
+		}
 
 		// Write the Output File.
 		err = ioutil.WriteFile(
@@ -107,9 +116,9 @@ func processFiles(
 				outputFilePath,
 				err.Error(),
 			)
-			return err
+			return duplicates, err
 		}
 	}
 
-	return nil
+	return duplicates, nil
 }

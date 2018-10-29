@@ -24,6 +24,8 @@
 
 // Command Line Arguments Handling.
 
+// Last Update Time: 2018-10-30.
+
 package main
 
 import (
