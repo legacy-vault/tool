@@ -17,7 +17,7 @@ All Output Files are put in a flat Manner (without Sub-Folders).
 
 Import Commands:
 ```
-go get -u "github.com/legacy-vault/tool/go/torrent-renamer"
+go get -u "github.com/legacy-vault/tool/torrent-renamer"
 ```
 
 ## Usage.
