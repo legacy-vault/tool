@@ -37,30 +37,23 @@ import (
 	"strings"
 )
 
-const ExtWanted = ".torrent"
+const ExtWantedNormal = "torrent"
+const ExtWantedFull = "." + ExtWantedNormal
 const OutputFilePermission = 0755
 
 // Lists the Input Files.
 func listInputFiles() []string {
 
-	var cleanList []string
-	var rawList []string
+	var list []string
 
-	// Get raw List.
-	rawList = file.ListFiles(
+	// Get the List with Extensions filtered.
+	list = file.ListFilesExtAllowed(
 		appCfg.FolderPathInput,
 		appCfg.ReadSubLevels,
+		[]string{ExtWantedNormal},
 	)
 
-	// Filter out the unwanted Files.
-	cleanList = []string{}
-	for _, file := range rawList {
-		if path.Ext(file) == ExtWanted {
-			cleanList = append(cleanList, file)
-		}
-	}
-
-	return cleanList
+	return list
 }
 
 // Processes the Files.
@@ -96,7 +89,7 @@ func processFiles(
 		if outputToUpperCase {
 			outputFileName = strings.ToUpper(outputFileName)
 		}
-		outputFileName = outputFileName + ExtWanted
+		outputFileName = outputFileName + ExtWantedFull
 		outputFilePath = path.Join(outputFolder, outputFileName)
 
 		// Check whether an Output File already exists.
