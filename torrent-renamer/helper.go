@@ -28,7 +28,12 @@
 
 package main
 
-import "os"
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strings"
+)
 
 // Checks whether the Path exists.
 func pathExists(path string) bool {
@@ -41,4 +46,46 @@ func pathExists(path string) bool {
 	}
 
 	return true
+}
+
+// Gets User's Feedback from Keyboard.
+func getUserFeedbackFromKeyboard(question string) bool {
+
+	var err error
+	var keyboardInput string
+	var reader *bufio.Reader
+
+	// Ask the Question.
+	if len(question) > 0 {
+		fmt.Println(question)
+	}
+
+	// Print the Hint.
+	fmt.Print(Proceed)
+
+	// Read from standard Input Stream (Keyboard).
+	reader = bufio.NewReader(os.Stdin)
+	keyboardInput, err = reader.ReadString('\n')
+	if err != nil {
+		os.Exit(ExitCodeKeyboardInputError)
+	}
+	keyboardInput = strings.ToLower(keyboardInput)
+	keyboardInput = strings.TrimSpace(keyboardInput)
+
+	// Check.
+	if keyboardInput != KeyboardInputYes {
+		return false
+	}
+
+	return true
+}
+
+// Prints the List of Strings.
+func printStrings(list []string) {
+
+	var s string
+
+	for _, s = range list {
+		fmt.Println(s)
+	}
 }

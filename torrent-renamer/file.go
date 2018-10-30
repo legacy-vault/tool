@@ -115,3 +115,54 @@ func processFiles(
 
 	return duplicates, nil
 }
+
+// Tries to processes all Files without writing the Results.
+// Returns the List (Map) of BTIH Sums with their duplicate Items.
+func preProcessFiles(
+	inputFilePaths []string,
+) (map[string][]string, error) {
+
+	var btih string
+	var do *bencode.DecodedObject
+	var err error
+	var exists bool
+	var filePath string
+	var list []string
+	var outputFileNames map[string][]string
+
+	// Prepare Data.
+	// Key = BTIH, Value = List of File Names.
+	outputFileNames = make(map[string][]string)
+
+	// Try to process without writing to Disk.
+	for _, filePath = range inputFilePaths {
+
+		// Decode the File to get its BTIH.
+		do, err = bencode.ParseFile(filePath)
+		if err != nil {
+			err = fmt.Errorf(
+				ErrFileDecoding,
+				filePath,
+				err.Error(),
+			)
+			return nil, err
+		}
+		btih = strings.ToUpper(do.BTIH.Text)
+
+		// Save File Name to List.
+		_, exists = outputFileNames[btih]
+		if !exists {
+			outputFileNames[btih] = []string{}
+		}
+		outputFileNames[btih] = append(outputFileNames[btih], filePath)
+	}
+
+	// Delete non-duplicate Items from the List (Map).
+	for btih, list = range outputFileNames {
+		if len(list) < 2 {
+			delete(outputFileNames, btih)
+		}
+	}
+
+	return outputFileNames, nil
+}

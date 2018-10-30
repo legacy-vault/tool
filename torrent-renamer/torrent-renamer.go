@@ -29,22 +29,20 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
 	"log"
 	"os"
-	"strings"
 )
 
 // Program's Entry Point.
 func main() {
 
-	var duplicates int
+	var duplicatesList map[string][]string
+	var duplicatesListLen int
 	var err error
 	var inputFilePaths []string
 	var inputFilePathsCount int
-	var keyboardInput string
-	var reader *bufio.Reader
+	var userFeedback bool
 
 	// Initialize Command Line Arguments.
 	err = initCLA()
@@ -72,21 +70,47 @@ func main() {
 	fmt.Println(FolderIn, appCfg.FolderPathInput)
 	fmt.Println(FolderOut, appCfg.FolderPathOutput)
 
-	// Confirm Proceeding.
-	fmt.Printf(MessagesToProcess, inputFilePathsCount)
-	reader = bufio.NewReader(os.Stdin)
-	keyboardInput, err = reader.ReadString('\n')
+	// Pre-process Files.
+	// Check that they can be decoded and their BTIH Sums do not collide.
+	// BTIH Collisions are not really important,
+	// they are checked to compare the Number of Input and Output Files.
+	duplicatesList, err = preProcessFiles(inputFilePaths)
 	if err != nil {
-		os.Exit(ExitCodeKeyboardInputError)
+		log.Println(err)
+		os.Exit(ExitCodeFileProcessingError)
 	}
-	keyboardInput = strings.ToLower(keyboardInput)
-	keyboardInput = strings.TrimSpace(keyboardInput)
-	if keyboardInput != KeyboardInputYes {
+
+	// If Files have no Syntax Errors, ask the User what to do...
+
+	// 1. Duplicates Count Report.
+	duplicatesListLen = len(duplicatesList)
+	if duplicatesListLen == 1 {
+		fmt.Printf(Duplicate, 1)
+	} else {
+		fmt.Printf(Duplicates, duplicatesListLen)
+	}
+
+	// 2. Show duplicate BTIH Sums?
+	if duplicatesListLen > 0 {
+		// Get Feedback.
+		userFeedback = getUserFeedbackFromKeyboard(QuestionShowDetails)
+		if userFeedback {
+			for btih, dups := range duplicatesList {
+				fmt.Println("BTIH:", btih)
+				printStrings(dups)
+			}
+		}
+	}
+
+	// Confirm Processing.
+	fmt.Printf(FilesToProcess, inputFilePathsCount)
+	userFeedback = getUserFeedbackFromKeyboard("")
+	if !userFeedback {
 		os.Exit(ExitCodeNormal)
 	}
 
 	// Process Files.
-	duplicates, err = processFiles(
+	_, err = processFiles(
 		inputFilePaths,
 		appCfg.FolderPathOutput,
 		appCfg.OutputFileNameToUpperCase,
@@ -95,9 +119,6 @@ func main() {
 		log.Println(err)
 		os.Exit(ExitCodeFileProcessingError)
 	}
-
-	// Duplicates Report.
-	fmt.Printf(Duplicates, duplicates)
 }
 
 // Checker of initial Errors.
