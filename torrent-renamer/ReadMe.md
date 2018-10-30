@@ -17,7 +17,7 @@ Before doing any write Operations, the Tool checks Syntax of all Files (which
 it finds) and checks them for Hash Sum Collisions, or, better to say, 
 Duplicates, as real Collisions are very rare Things to see.<br />
 <br />
-If this Tools finds two or more Files with same BTIH, it offers to view a 
+If this Tool finds two or more Files with same BTIH, it offers to view a 
 detailed List of Duplicates. End User may approve or abort the Procession of 
 Files. In most Cases, BTIH Sum Duplicates appear either when you have the same 
 File with different Names or you have a modified BitTorrent File with the same 
