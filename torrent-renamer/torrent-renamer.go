@@ -103,7 +103,11 @@ func main() {
 	}
 
 	// Confirm Processing.
-	fmt.Printf(FilesToProcess, inputFilePathsCount)
+	if inputFilePathsCount != 1 {
+		fmt.Printf(FilesToProcess, inputFilePathsCount)
+	} else {
+		fmt.Printf(FileToProcess, inputFilePathsCount)
+	}
 	userFeedback = getUserFeedbackFromKeyboard("")
 	if !userFeedback {
 		os.Exit(ExitCodeNormal)
